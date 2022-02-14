@@ -9,7 +9,6 @@ import java.util.List;
  * @author rosen
  *
  */
-
 public class Robota {
 	private final List<String> learnedWords = new ArrayList<String>();
 
