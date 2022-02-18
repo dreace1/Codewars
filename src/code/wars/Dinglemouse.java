@@ -10,10 +10,16 @@ public class Dinglemouse {
 		boolean mountainsLeft = true;
 		System.out.println(toString(mountain));
 
+		if (mountain.length == 0 && mountain[0].length == 0) {
+			return 0;
+		}
+
+
 		while (mountainsLeft) {
 
 			for (int row = 0; row < mountain.length; row++) {
 				for (int col = 0; col < mountain[row].length; col++) {
+
 
 					if ((isEdge(mountain, row, col + 1, flightPath) && isMountain(mountain, row, col))
 							|| (isEdge(mountain, row, col - 1, flightPath) && isMountain(mountain, row, col))
@@ -42,25 +48,31 @@ public class Dinglemouse {
 	public static boolean isEdge(char[][] mountain, int row, int col, char flightPath) {
 		final boolean checkIfInBounds = row >= 0 && col >= 0 && row < mountain.length && col < mountain[0].length;
 
-		if(isLeftOrRight(mountain, col)) {
+		if(!checkIfInBounds) {
 			return true;
 		}
 
-		if(isTopOrBottom(mountain, row)) {
+		if (isTopOrBottom(mountain, row)) {
+			return true;
+		}
+
+		if (isLeftOrRight(mountain, col)) {
 			return true;
 		}
 
 
-		return (flightPath == '1') ? checkIfInBounds && (mountain[row][col] == ' ')
-				: checkIfInBounds && mountain[row][col] == flightPath;
+
+		return (flightPath == '1') ? mountain[row][col] == ' ' : mountain[row][col] == flightPath - 1;
 	}
 
+
+
 	public static boolean isTopOrBottom(char[][] mountain, int row) {
-		return row == 0 || row == mountain.length - 1;
+		return row == -1 || row == mountain.length;
 	}
 
 	public static boolean isLeftOrRight(char[][] mountain, int col) {
-		return col == 0 || col == mountain[0].length - 1;
+		return col == -1 || col == mountain[0].length;
 	}
 
 	public static boolean mountainsLeft(char[][] mountain) {
