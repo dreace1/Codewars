@@ -2,39 +2,36 @@ package code.wars;
 
 import java.util.Arrays;
 
+/**
+ * https://www.codewars.com/kata/5c09ccc9b48e912946000157/train/java
+ *
+ * @author rosen
+ *
+ */
 public class Dinglemouse {
 
 	public static int peakHeight(char[][] mountain) {
 		char flightPath = '1';
 		int height = 0;
-		boolean mountainsLeft = true;
-		System.out.println(toString(mountain));
+		boolean mountainsRemaining = montainsRemaining(mountain);
 
-		if (mountain.length == 0 && mountain[0].length == 0) {
-			return 0;
-		}
-
-
-		while (mountainsLeft) {
+		while (mountainsRemaining) {
 
 			for (int row = 0; row < mountain.length; row++) {
 				for (int col = 0; col < mountain[row].length; col++) {
-
 
 					if ((isEdge(mountain, row, col + 1, flightPath) && isMountain(mountain, row, col))
 							|| (isEdge(mountain, row, col - 1, flightPath) && isMountain(mountain, row, col))
 							|| (isEdge(mountain, row + 1, col, flightPath) && isMountain(mountain, row, col))
 							|| (isEdge(mountain, row - 1, col, flightPath) && isMountain(mountain, row, col))) {
 						mountain[row][col] = flightPath;
-
 					}
 				}
 			}
 			flightPath++;
 			height++;
-			System.out.println(toString(mountain));
 
-			mountainsLeft = mountainsLeft(mountain);
+			mountainsRemaining = montainsRemaining(mountain);
 		}
 
 
@@ -60,8 +57,6 @@ public class Dinglemouse {
 			return true;
 		}
 
-
-
 		return (flightPath == '1') ? mountain[row][col] == ' ' : mountain[row][col] == flightPath - 1;
 	}
 
@@ -75,7 +70,7 @@ public class Dinglemouse {
 		return col == -1 || col == mountain[0].length;
 	}
 
-	public static boolean mountainsLeft(char[][] mountain) {
+	public static boolean montainsRemaining(char[][] mountain) {
 
 		for (int row = 0; row < mountain.length; row++) {
 			for (int col = 0; col < mountain[row].length; col++) {
@@ -84,7 +79,6 @@ public class Dinglemouse {
 				}
 			}
 		}
-
 		return false;
 	}
 
