@@ -51,12 +51,10 @@ public class BirdByTheRiver {
 				}
 			}
 		}
+
 		return true;
 	}
 
-	public static boolean isFree(char[][] terrain, int row, int col, char flooding) {
-		return terrain[row][col] == flooding;
-	}
 
 	public static boolean checkIfinBounds(char[][] terrain, int row, int col) {
 		return row >= 0 && col >= 0 && row < terrain.length && col < terrain[0].length;
