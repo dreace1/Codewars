@@ -8,7 +8,7 @@ public class AntBridge {
 		}
 		System.out.println(ants + "\n" + terrain);
 
-		final StringBuilder antsAsBridge = new StringBuilder();
+		StringBuilder antsAsBridge = new StringBuilder();
 		StringBuilder movingAnts = new StringBuilder(ants);
 		String antOrder = "";
 		int antIndex = ants.length() - 1;
@@ -16,38 +16,45 @@ public class AntBridge {
 		for (int i = 0; i < terrain.length(); i++) {
 
 			if (i < terrain.length() - 1 && isSolidGround(terrain.charAt(i)) && isGap(terrain.charAt(i + 1))) {
-				// System.out.println("if1");
-				antsAsBridge.append(ants.charAt(antIndex));
+				antsAsBridge.append(movingAnts.charAt(antIndex));
 				movingAnts.deleteCharAt(antIndex);
 				antIndex--;
+				System.out.println("1 moving " + antsAsBridge);
+				System.out.println("1 bridgeAnt " + movingAnts);
 
 
 			} else if (isGap(terrain.charAt(i))) {
 				// System.out.println("if2");
 
-				antsAsBridge.append(ants.charAt(antIndex));
+				antsAsBridge.append(movingAnts.charAt(antIndex));
 				movingAnts.deleteCharAt(antIndex);
 				antIndex--;
+
+				System.out.println("2 moving " + antsAsBridge);
+				System.out.println("2 bridgeAnt " + movingAnts);
+
 
 
 			} else if (i > 0 && isGap(terrain.charAt(i - 1)) && isSolidGround(terrain.charAt(i))) {
 				// System.out.println("if3");
 
-				antsAsBridge.append(ants.charAt(antIndex));
+				antsAsBridge.append(movingAnts.charAt(antIndex));
 				movingAnts.deleteCharAt(antIndex);
 				antIndex--;
 
-				System.out.println("moving " + movingAnts.toString());
+				System.out.println("3 moving " + movingAnts.toString());
 				antsAsBridge.reverse();
-				System.out.println("bridgeAnt " + antsAsBridge.toString());
+				System.out.println("3 rev bridgeAnt " + antsAsBridge.toString());
 
 				antOrder = antsAsBridge.toString() + movingAnts.toString();
-				System.out.println("newOrder " + antsAsBridge + "\n");
+				System.out.println("newOrder " + antOrder + "\n");
 
+				// movingAnts.append(antsAsBridge.toString());
 				movingAnts = new StringBuilder(antOrder);
-				antsAsBridge.delete(0, antsAsBridge.length());
-				System.out.println("deleted: " + antsAsBridge);
-				antIndex = movingAnts.length() - 1;
+				System.out.println(movingAnts.toString());
+				antsAsBridge = new StringBuilder();
+				antIndex = antOrder.length() - 1;
+				System.out.println(antIndex);
 
 			}
 
@@ -70,7 +77,7 @@ public class AntBridge {
 
 
 	public static void main(String[] args) {
-		System.out.println(antBridge("GFEDCBA", "------------...-----------"));
+		System.out.println(antBridge("GFEDCBA", "------------...-----..----"));
 	}
 
 }
